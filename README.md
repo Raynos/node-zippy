@@ -2,7 +2,7 @@
 
 The array library to go with your [hashish](https://github.com/substack/node-hashish). Eventually.
 
-Truth be told, I just don't like requiring underscore when the only thing I use from it is the zip function. While I'm at it
+Truth be told, I just don't like requiring underscore when the only thing I use from it is the zip function. While I'm at it, I plan on making some more useful tidbits for array manipulation action.
 
 ## Right Away:
 
