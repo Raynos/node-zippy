@@ -21,7 +21,6 @@ exports.zipWith = function () {
         return xs.length;
     }));
 
-    console.log(width);
     var output = [];
     //potentially a better way to do this?
     for (i=0; i<width; i++) {
@@ -34,4 +33,7 @@ exports.zipWith = function () {
     return output;
 }
 
-exports.zip = exports.zipWith.bind(null, function(a,b) { return [a, b]; });
+exports.zip = exports.zipWith.bind(null, function() {
+    return Array.prototype.slice.call(arguments); 
+});
+exports.transpose = function (xs) { return exports.zip.apply(null, xs) };
