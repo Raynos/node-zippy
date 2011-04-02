@@ -16,4 +16,5 @@ Truth be told, I just don't like requiring underscore when the only thing I use 
 * `iterate`
 * "fancy indexing" (think numpy.array)
 * node-lazy integration
+* Array().method action for a cleaner and more Hashish-ish API
 * Who knows?
