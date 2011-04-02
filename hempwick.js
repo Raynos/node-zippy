@@ -1,3 +1,17 @@
+exports.chunk = function (n, xs) {
+    function chunk_ (acc, n, xs) {
+        if (n > xs.length) {
+            return acc.concat([xs]);
+        } else {
+            var chunk = xs;
+            var rest = xs.splice(n);
+            return chunk_(acc.concat([chunk]), n, rest);
+        }
+    }
+    return chunk_([], n, xs);
+}
+
+//zippers
 exports.zipWith = function () {
     var fxn = Array.prototype.slice.call(arguments);
     var args = fxn.splice(1);
