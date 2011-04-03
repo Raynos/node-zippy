@@ -11,6 +11,28 @@ exports.chunk = function (n, xs) {
     return chunk_([], n, xs);
 }
 
+exports.range = function() {
+    var from = 0;
+    var to = 0;
+    var every = 1;
+    switch(arguments.length) {
+    case 1:
+        to = arguments[0];
+        break;
+    case 3:
+        every = arguments[2];
+    case 2:
+        from = arguments[0];
+        to = arguments[1];
+        break;
+    }
+    var output = [];
+    for(i=from; i < to; i+=every) {
+        output.push(i);
+    }
+    return output;
+}
+
 //zippers
 exports.zipWith = function () {
     var fxn = Array.prototype.slice.call(arguments);
@@ -36,4 +58,5 @@ exports.zipWith = function () {
 exports.zip = exports.zipWith.bind(null, function() {
     return Array.prototype.slice.call(arguments); 
 });
+
 exports.transpose = function (xs) { return exports.zip.apply(null, xs) };
