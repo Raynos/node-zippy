@@ -8,11 +8,12 @@ Truth be told, I just don't like requiring underscore when the only thing I use 
 
 * `zip` (zipWith with function(a,b) { return [a, b]; })
 * `zipWith`
+* `chunk` (chunk(n, [1 .. 9]) -> [[1, 2, 3], [4, 5, 6], [7, 8, 9]] )
+* `range` action
 
 ## Later, Potentially:
 
-* `chunk` (chunk(n, [1 .. 9]) -> [[1, 2, 3], [4, 5, 6], [7, 8, 9]] )
-* `range` action
+* `linspace`, `logspace`
 * `iterate`
 * "fancy indexing" (think numpy.array)
 * node-lazy integration
