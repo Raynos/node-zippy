@@ -14,7 +14,7 @@ exports.testRange = function() {
 
 
 exports.testIterate = function() {
-    assert.eql(hw.iterate(0,function(x) { return x+1; }, function(x) {return x >= 10}),
+    assert.eql(hw.iterate(function(x) { return x+1; }, function(x) {return x >= 10}, 0),
                hw.range(11));
 }
 
