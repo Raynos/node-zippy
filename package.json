@@ -1,7 +1,7 @@
 {
   "name": "hempwick",
   "description": "An array manipulation library",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/jesusabdullah/hempwick",
   "repository": {
     "type": "git",
