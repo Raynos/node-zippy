@@ -38,7 +38,7 @@ ni, ni+1, ... n(i+1)-1. For example:
 In a sense, it's the opposite of a `flatten`, which will likely be implemented
 at a later date.
 
-## range(<start>, stop, <every>)
+## range([start], stop, [every])
 
 Acts like the range operator from many languages, but was specifically inspired
 by python. Examples:
