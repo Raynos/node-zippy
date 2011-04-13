@@ -7,9 +7,14 @@ exports.testChunk = function() {
 }
 
 exports.testRange = function() {
-    assert.eql(range(10), [0,1,2,3,4,5,6,7,8,9]);
-    assert.eql(range(3,6), [3,4,5]);
-    assert.eql(range(1,10,2), [1,3,5,7,9]);
+    assert.eql(hw.range(10), [0,1,2,3,4,5,6,7,8,9]);
+    assert.eql(hw.range(3,6), [3,4,5]);
+    assert.eql(hw.range(1,10,2), [1,3,5,7,9]);
+}
+
+exports.textIterate = function() {
+    assert.eql(hw.iterate(0,function(x) { return x+1; }, function(x) {return x >= 10}),
+               hw.range(11));
 }
 
 

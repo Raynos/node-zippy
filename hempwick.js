@@ -33,6 +33,15 @@ exports.range = function() {
     return output;
 }
 
+exports.iterate = function(x0, iterator, stop) {
+    var xs = [x0];
+
+    while (!stop(xs[xs.length-1])) {
+        xs.push(iterator(xs[xs.length-1]));
+    }
+    return xs;
+}
+
 //zippers
 exports.zipWith = function () {
     var fxn = Array.prototype.slice.call(arguments);
