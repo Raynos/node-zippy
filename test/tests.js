@@ -12,7 +12,8 @@ exports.testRange = function() {
     assert.eql(hw.range(1,10,2), [1,3,5,7,9]);
 }
 
-exports.textIterate = function() {
+
+exports.testIterate = function() {
     assert.eql(hw.iterate(0,function(x) { return x+1; }, function(x) {return x >= 10}),
                hw.range(11));
 }

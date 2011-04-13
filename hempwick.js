@@ -33,6 +33,9 @@ exports.range = function() {
     return output;
 }
 
+// Cool ideas:
+// 1) Allow for an object {iterator: f, stop: g, x0: a}
+// 2) Lazy version
 exports.iterate = function(x0, iterator, stop) {
     var xs = [x0];
 
