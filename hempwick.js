@@ -33,6 +33,13 @@ exports.range = function() {
     return output;
 }
 
+exports.linspace = function(a,b,n) {
+    var every = (b-a)/(n-1);
+    var ranged = exports.range(a,b,every);
+    return ranged.length == n ? ranged : ranged.concat(b);
+
+}
+
 // Cool ideas:
 // 1) Allow for an object {iterator: f, stop: g, x0: a}
 // 2) Lazy version

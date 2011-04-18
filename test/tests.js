@@ -12,6 +12,17 @@ exports.testRange = function() {
     assert.eql(hw.range(1,10,2), [1,3,5,7,9]);
 }
 
+exports.testLinspaceExact = function() {
+    assert.eql(hw.linspace(1,5,5), [1,2,3,4,5]);    
+}
+
+exports.testLinspaceApprox = function() {
+    var wiggle = 0.00001;
+    hw.zip(hw.linspace(1,5,4), [1, 2.33333, 3.66667, 5]).forEach( function(tu) {
+        assert.ok(tu[1]-wiggle < tu[0] && tu[0] < tu[1] + wiggle);
+    });
+}
+
 
 exports.testIterate = function() {
     assert.eql(hw.iterate(function(x) { return x+1; }, function(x) {return x >= 10}, 0),
