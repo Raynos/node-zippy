@@ -23,6 +23,13 @@ exports.testLinspaceApprox = function() {
     });
 }
 
+exports.testLogspaceApprox = function() {
+    var wiggle = 0.001;
+    hw.zip(hw.logspace(1,2,4), [10, 21.544, 46.416, 100]).forEach( function(tu) {
+        assert.ok(tu[1]-wiggle < tu[0] && tu[0] < tu[1] + wiggle);
+    });
+}
+
 
 exports.testIterate = function() {
     assert.eql(hw.iterate(function(x) { return x+1; }, function(x) {return x >= 10}, 0),

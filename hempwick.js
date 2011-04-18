@@ -40,6 +40,10 @@ exports.linspace = function(a,b,n) {
 
 }
 
+exports.logspace = function(a,b,n) {
+    return exports.linspace(a,b,n).map(function(x) { return Math.pow(10,x); });
+}
+
 // Cool ideas:
 // 1) Allow for an object {iterator: f, stop: g, x0: a}
 // 2) Lazy version
