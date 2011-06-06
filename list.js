@@ -5,19 +5,19 @@
 
 // # "Basic Functions"
 
-exports.head = function head (xs) {
+exports.head = head = function (xs) {
     return xs[0];
 }
 
-exports.last = function last (xs) {
+exports.last = last = function (xs) {
     return xs[xs.length-1];
 }
 
-exports.tail = function tail (xs) {
+exports.tail = tail = function (xs) {
     return xs.slice(1);
 }
 
-exports.init = function init (xs) {
+exports.init = init = function (xs) {
     return xs.slice(0,xs.length-1);
 }
 
@@ -26,11 +26,11 @@ exports.init = function init (xs) {
 
 // # "List Transformations"
 
-exports.reverse = function reverse (xs) {
-     return a.slice().reverse();
+exports.reverse = reverse = function (xs) {
+     return xs.slice().reverse();
 }
 
-exports.transpose = function transpose (xs) {
+exports.transpose = transpose = function (xs) {
     return exports.zip.apply(null, xs);
 }
 
@@ -42,11 +42,6 @@ exports.transpose = function transpose (xs) {
 //       where f ys r = ys : (x : ys) : r
 //
 // I took a one-off crack at it, which of course doesn't work :/
-
-exports.subsequences = function subsequences (xs) {
-    throw new Error("`subsequences` not properly implemented!");
-    return [].concat(nonEmptySubsequences(xs));
-}
 
 //Important bug stems from xs.concat(y) vs. xs.concat([y])
 function nonEmptySubsequences (xs) {
@@ -64,9 +59,14 @@ function nonEmptySubsequences (xs) {
     }
 }
 
+exports.subsequences = subsequences = function (xs) {
+    throw new Error("`subsequences` not properly implemented!");
+    return [].concat(nonEmptySubsequences(xs));
+}
+
 // Similar situation to the `subsequences` function, except that I haven't
 // tried to write it yet!
-exports.permutations = function permutations (xs) {
+exports.permutations = permutations = function (xs) {
     throw new Error("`permutations` not properly implemented!");
 }
 
@@ -75,19 +75,19 @@ exports.permutations = function permutations (xs) {
 
 // # "folds"
 
-exports.sum = function sum (xs) {
+exports.sum = sum = function (xs) {
     return xs.reduce(function(x, acc) { return x + acc; });
 }
 
-exports.product = function product (xs) {
+exports.product = product = function (xs) {
     return xs.reduce(function(x, acc) { return x * acc; });
 }
 
-exports.maximum = function maximum (xs) {
+exports.maximum = maximum = function (xs) {
     return Math.max.apply(this, xs);
 }
 
-exports.minimum = function minimum (xs) {
+exports.minimum = minimum = function (xs) {
     return Math.min.apply(this, xs);
 }
 
@@ -101,7 +101,7 @@ exports.minimum = function minimum (xs) {
 // This is roughly equivalent to scanl'.
 // Also, since reduce is in native code, scan is likely *much* slower.
 // ex: scan(function(a,b) {return a+b}, 0, [1,2,3]);
-exports.scan = function scan (fxn, acc0, xs) {
+exports.scan = scan = function (fxn, acc0, xs) {
     var res = [acc0];
     xs.forEach(function(x) {
         res.push(fxn( last(res), x ));
@@ -118,7 +118,7 @@ exports.scan = function scan (fxn, acc0, xs) {
 // since I've never used it in Haskell. :/
 // Could end up being useful, though! Depending.
 
-exports.mapAccum = function mapAccum(fxn, acc0, xs) {
+exports.mapAccum = mapAccum = function (fxn, acc0, xs) {
     var acc = acc0;
     var transformed = xs.map(function(x) {
         //returns [x', acc']
@@ -153,7 +153,7 @@ exports.mapAccum = function mapAccum(fxn, acc0, xs) {
 // returns
 // [10,9,8,7,6,5,4,3,2,1]
 
-exports.unfold = function unfold (fxn, acc) {
+exports.unfold = unfold = function (fxn, acc) {
     return _unfold(fxn, acc, []);
     function _unfold (fxn, acc, xs) {
         var res = fxn(acc);
@@ -167,27 +167,114 @@ exports.unfold = function unfold (fxn, acc) {
 
 
 // # "Sublists"
-// TODO: Examine: take, drop, takeWhile, splitAt, dropWhile, span, break, stripPrefix, group, inits, tails
-// TODO: Examine: isPrefixOf, isSuffixOf, isInfixOf
+// Some of Haskell's make the most sense for laziness, and hence are
+// unimplemented
+
+//Predicates
+exports.isPrefixOf = isPrefixOf = function (pre, xs) {
+    for(var i = 0; (xs[i] == pre[i]) || (i > pre.length); i++);
+    return (i === pre.length);
+}
+
+exports.isSuffixOf = isSuffixOf = function (suf, xs) {
+    return isPrefixOf(reverse(suf), reverse(xs));
+}
+
+exports.isInfixOf = isInfixOf = function (inf, xs) {
+    var isInfix = false;
+    for (var i = 0; i < (xs.length - inf.length); i++) {
+        if ( isPrefixOf(inf, xs.slice(i)) ) {
+            isInfix = true;           
+        }
+    }
+    isInfix = isInfix || isSuffixOf(inf,xs);
+    return isInfix;
+}
+
+//Not-so-predicates
+
+exports.takeWhile = takeWhile = function (pred, xs) {
+    //incr's i until predicate not met.
+    for(var i = 0; pred(xs[i]) || i > xs.length; i++);
+    return xs.slice(0,i);
+}
+
+exports.dropWhile = dropWhile = function (pred, xs) {
+    //Very similar to takeWhile. Last line is diff. tho!
+    for(var i=0; pred(xs[i]) || i > xs.length; i++);
+    return xs.slice(i);
+}
+
+//Note: break is a reserved keyword, so use !pred instead
+exports.span = span = function (pred, xs) {
+    var left = xs;
+    for(var i=0; pred(xs[i]); i++);
+    var right = left.splice(i);
+    return [left, right];
+}
+
+exports.stripPrefix = stripPrefix = function (pre, xs) {
+    //See isPrefixOf.
+    return isPrefixOf(pre,xs) ? xs.slice(pre.length) : null;
+}
+
+//Works on lists and not strings. May be worth "baking in" string support.
+//Alternately, write a separate set for string manips.
+exports.group = group = function (xs) {
+    var res = [[xs[0]]];
+    var j = 0;
+
+    xs.slice(1).forEach(function(x,i) {
+        if (x !== last(res[j]) ) {
+            j++;
+            res[j] = [];
+        }
+        res[j].push(x);
+    });
+
+    return res;
+}
+
+exports.inits = inits = function (xs) {
+    var res = [];
+    xs.forEach(function(x,i) {
+        res.push(xs.slice(0,i));
+    });
+    res.push(xs);
+    return res;
+}
+
+exports.tails = tails = function (xs) {
+    var res = [];
+    xs.forEach(function(x,i) {
+        res.push(xs.slice(i));
+    });
+    res.push([]);
+    return res;
+}
+
+// Not implemented: take, drop, splitAt, break
 
 
 // # "Searching lists"
-// TODO: Examine: elem, notElem, lookup
-// TODO: Examine: find, filter, partition
+
+exports.find = find = function (pred, xs) {
+    for(var i = 0; pred(xs[i]) || i > xs.length; i++);
+    return i >= xs.length ? null : xs[i];
+}
+
+// Not implemented: elem, notElem, lookup, filter
 
 
 // # "Indexing lists"
+//I need to think about what the idiomatic was of doing this are.
 //TODO: Examine: elemIndex, elemIndices, findIndex, findIndices
-//TODO: Examine: 
-
 //Not implemented: "!!"
 
 
 // # "Zipping and Unzipping Lists"
 // Because js is dynamic and doesn't rock tuples, these zippers work with n
-// chars iirc.
-
-//TODO: Examine: unzip
+// chars iirc, and also acts as an unzip.
 
 exports.zipWith = function () {
     var fxn = Array.prototype.slice.call(arguments);
@@ -216,6 +303,9 @@ exports.zip = exports.zipWith.bind(null, function() {
 
 
 // # "Special Lists"
+// ## "string functions" (strings aren't [Char] so...)
+// ## "set operations"
+// ## "ordered lists"
 
 
 // # "Generalized functions"
