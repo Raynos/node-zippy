@@ -1,15 +1,15 @@
 {
-  "name": "hempwick",
-  "description": "An array manipulation library",
-  "version": "0.0.2",
-  "homepage": "https://github.com/jesusabdullah/hempwick",
+  "name": "zippy",
+  "description": "zip() and zipWith() for Node.js!,
+  "version": "0.0.0",
+  "homepage": "https://github.com/jesusabdullah/node-zippy",
   "repository": {
     "type": "git",
-    "url": "git@github.com:jesusabdullah/hempwick.git"
+    "url": "git@github.com:jesusabdullah/node-zippy.git"
   },
   "author": "Joshua Holbrook <josh.holbrook@gmail.com> (http://jesusabdullah.github.com)",
-  "main": "hempwick.js",
+  "main": "lib/zippy.js",
   "engines": {
-    "node": "*"
+    "node": "~v4.0.9"
   }
 }
