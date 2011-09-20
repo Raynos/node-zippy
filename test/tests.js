@@ -1,8 +1,10 @@
-var zippy = require("../lib/zippy"),
-    assert = require("assert");
+var zipped = require("../lib/zippy").zip(['a', 'b', 'c'],[1, 2, 3],['u','v','w']);
 
-//Since zip is a special case for zipWith, this should effectively test zipWith
-exports.testZip = function() {
-    assert.eql( zippy.zip(['a', 'b', 'c'],[1, 2, 3],['u','v','w']),
-                  [['a', 1, 'u'], ['b', 2, 'v'], ['c', 3, 'w']]);
-}
+[['a', 1, 'u'], ['b', 2, 'v'], ['c', 3, 'w']].forEach( function (row, i) {
+    row.forEach( function (elem, j) {
+        exports["zipped["+i+","+j+"] == "+elem] = function (test) {
+            test.equal(elem, zipped[i][j]);
+            test.done();
+        }
+    });
+});
