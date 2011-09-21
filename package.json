@@ -1,7 +1,7 @@
 {
   "name": "zippy",
   "description": "zip() and zipWith() for Node.js!",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/jesusabdullah/node-zippy",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
   "author": "Joshua Holbrook <josh.holbrook@gmail.com> (http://jesusabdullah.github.com)",
   "main": "lib/zippy.js",
   "engines": {
-    "node": "~v4.0.9"
+    "node": "~v0.4.9"
   },
   "scripts": {
     "test": "nodeunit ./test/tests.js"
