@@ -9,9 +9,6 @@
   },
   "author": "Joshua Holbrook <josh.holbrook@gmail.com> (http://jesusabdullah.github.com)",
   "main": "lib/zippy.js",
-  "engines": {
-    "node": "~v0.4.9"
-  },
   "scripts": {
     "test": "nodeunit ./test/tests.js"
   }
